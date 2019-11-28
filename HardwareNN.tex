@@ -1,4 +1,3 @@
-
 %% bare_conf.tex
 %% V1.4b
 %% 2015/08/26
@@ -54,6 +53,9 @@
 \documentclass[conference]{IEEEtran}
 
 \usepackage{cite}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
 % Some Computer Society conferences also require the compsoc mode option,
 % but others use the standard conference format.
 %
@@ -118,22 +120,22 @@
 % *** GRAPHICS RELATED PACKAGES ***
 %
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+% \usepackage[pdftex]{graphicx}
+% declare the path(s) where your graphic files are
+% \graphicspath{{../pdf/}{../jpeg/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+% \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 \else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
+% or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+% will default to the driver specified in the system graphics.cfg if no
+% driver is specified.
+% \usepackage[dvips]{graphicx}
+% declare the path(s) where your graphic files are
+% \graphicspath{{../eps/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+% \DeclareGraphicsExtensions{.eps}
 \fi
 % graphicx was written by David Carlisle and Sebastian Rahtz. It is
 % required if you want graphics, photos, etc. graphicx.sty is already
@@ -315,193 +317,278 @@
 
 
 \begin{document}
-%
-% paper title
-% Titles are generally capitalized except for words such as a, an, and, as,
-% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
-% not capitalized unless they are the first or last word of the title.
-% Linebreaks \\ can be used within to get better formatting as desired.
-% Do not put math or special symbols in the title.
-\title{Proseminar Rechnerarchitektur \\Hardware für neuronale Netze}
+    %
+    % paper title
+    % Titles are generally capitalized except for words such as a, an, and, as,
+    % at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+    % not capitalized unless they are the first or last word of the title.
+    % Linebreaks \\ can be used within to get better formatting as desired.
+    % Do not put math or special symbols in the title.
+    \title{Proseminar Rechnerarchitektur \\Hardware für neuronale Netze}
 
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
-\author{\IEEEauthorblockN{Leon Jungemeyer}
-\IEEEauthorblockA{Fakultät für Informatik\\
-Karlsruhe Institute of Technology\\
-Karlsruhe, Deutschland\\
-Email: leon.jungemeyer@me.com}}
+    % author names and affiliations
+    % use a multiple column layout for up to three different
+    % affiliations
+    \author{
+    \IEEEauthorblockN{Leon Jungemeyer}
+    \IEEEauthorblockA{
+    Fakultät für Informatik\\
+    Karlsruhe Institute of Technology\\
+    Karlsruhe, Deutschland\\
+    Email: leon.jungemeyer@me.com
+    }
+    }
 
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
+    % conference papers do not typically use \thanks and this command
+    % is locked out in conference mode. If really needed, such as for
+    % the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+    % after \documentclass
 
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+    % for over three affiliations, or if they all won't fit within the width
+    % of the page, use this alternative format:
+    %
+    %\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+    %Homer Simpson\IEEEauthorrefmark{2},
+    %James Kirk\IEEEauthorrefmark{3},
+    %Montgomery Scott\IEEEauthorrefmark{3} and
+    %Eldon Tyrell\IEEEauthorrefmark{4}}
+    %\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+    %Georgia Institute of Technology,
+    %Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+    %\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+    %Email: homer@thesimpsons.com}
+    %\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+    %Telephone: (800) 555--1212, Fax: (888) 555--1212}
+    %\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
 
 
 
 
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
+    % use for special paper notices
+    %\IEEEspecialpapernotice{(Invited Paper)}
 
 
 
 
-% make the title area
-\maketitle
+    % make the title area
+    \maketitle
 
-% As a general rule, do not put math, special symbols or citations
-% in the abstract
-\begin{abstract}
-In diesem Proseminar werden verschiedene Harwareimplementierungen von künstlichen neuronalen Netzen(ANN) verglichen.
-Insbesondere wird auf die Harwarestruktur der einzelenen Implementierungen eingegangen.
+    % As a general rule, do not put math, special symbols or citations
+    % in the abstract
+    \begin{abstract}
+        In diesem Proseminar werden verschiedene Harwareimplementierungen von künstlichen neuronalen Netzen(ANN) verglichen.
+        Insbesondere wird auf die Harwarestruktur der einzelenen Implementierungen eingegangen.
 
-\end{abstract}
+    \end{abstract}
 
-% no keywords
+    % no keywords
 
 
 
 
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
+    % For peer review papers, you can put extra information on the cover
+    % page as needed:
+    % \ifCLASSOPTIONpeerreview
+    % \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+    % \fi
+    %
+    % For peerreview papers, this IEEEtran command inserts a page break and
+    % creates the second title. It will be ignored for other modes.
+    \IEEEpeerreviewmaketitle
 
 
 
-\section{Introduction}
-% no \IEEEPARstart
-Künstliche Neuronale Netze(ANN) sind ein von der Biologie Inspiriertes Konzept in Informatik, um Daten auszuwerten und zu klassifizieren.
-Ursprünglich wurden ANNs hauptsächlich in Software modeliert und auf klassischen Prozessoren ausgewertet. Aufgrund der hohen Paralellität und der vergleichseweise geringen Komplexität der einzelnen Operationen eignen sich klassische Prozessoren jedoch nur bedingt für solche Aufgaben \cite{forssell2014hardware}.
-Hardwareimplementierungen von Neuronalen Netzen veruschen dieses Problem zu lösen.
+    \section{Introduction}
+    % no \IEEEPARstart
+    Künstliche Neuronale Netze(ANN) sind ein von der Biologie Inspiriertes Konzept in Informatik, um Daten auszuwerten und zu klassifizieren.
+    Ursprünglich wurden ANNs hauptsächlich in Software modeliert und auf klassischen Prozessoren ausgewertet. Aufgrund der hohen Paralellität und der vergleichseweise geringen Komplexität der einzelnen Operationen eignen sich klassische Prozessoren jedoch nur bedingt für solche Aufgaben \cite{forssell2014hardware}.
+    Hardwareimplementierungen von Neuronalen Netzen veruschen dieses Problem zu lösen.
 
-Künstliche Nueronale Netze haben verschiene Anwendungsgebiete. Neben dem Standartszenario der Klassifikation von Daten werden auch assoziative Neuronale Speicher eingesetzt um Daten zu speichern. Neuronale Netze werden zum Autmoatischen Hashen von Daten verweendet(Autoencoder), und viele weitere Anwendungen. 
+    Künstliche Nueronale Netze haben verschiene Anwendungsgebiete.
+    Neben dem Standartszenario der Klassifikation von Daten werden auch assoziative Neuronale Speicher eingesetzt um Daten zu speichern.
+    Neuronale Netze werden zum Automoatischen Hashen von Daten verweendet(Autoencoder), und viele weitere Anwendungen.
 
-Verschiedene Aufbauten und Topologien von NN fordern deshalb möglichst anpassbare und dynamische Architekturen von künstlichen NN, um vergelichbar mit klassischen Prozessoren ein möglichst breites Feld von Neuronalen Netzen beschleunigen zu können.
 
-\hfill mds
- 
-\hfill August 26, 2015
+    Verschiedene Aufbauten und Topologien von NN fordern deshalb möglichst anpassbare und dynamische Architekturen von künstlichen NN,
+    um vergelichbar mit klassischen Prozessoren ein möglichst breites Feld von Neuronalen Netzen beschleunigen zu können.
 
+    Grundsätzlich kann man dabei die Funktion von ANNs in 2 Kategorien unterteilen.
+    Die Klassifikation von Daten und das Lernen uas Daten.
+    Dabei ist Lernen deutlich komplexer, und stellt an ANNs deutlich höhere Ansprüche als reines KLassifizieren.
+    In vielen Anwendungen ist zudem Lernen nicht gefordert, weshalb Implementierungen zum Teil kein Lernen unterstützen sondern nur mit vortrainierten Gewichten versehen werden.
+    Dies senkt den Harwareaufwand erheblich.
 
-\section{Künstliche Neuronen}
-Neuronen bilden die Basis jedes ANN.
-Ein Neuron bildet die gewichtete Summe aus einer Menge von Eingaben und wendet auf diese eine Aktivierungsfunktion an.
-Die Harwareimplementierungen unterschieden sich dabei wesentlich sowohl zwischen digitalen und analogen Neuronen, als auch zwischen den Aktivierungsfunktionen.
- \cite{habib1989digital}
-\subsection{Digitale Neuronen}
 
-Aufgrund der weiten Verbreitung von CMOS Technologie 
-sind digitale Implementierungen von künstlichen Neuronen relativ günstig umzusetzen\cite{misra2010artificial} .
+    \hfill mds
 
-\subsubsection{FPGA Basierte Implementierungen}
-In \cite{muthuramalingam2008neural} wird eine implemntierung eines Neurons mittles eines FPGAs Vorgeschlagen.
-Dabei wird das Neuron in 2 Teile unterteilt, des sogentannten \texttt{SIGMA} Block und den \texttt{LOGSIG} Block. 
+    \hfill August 26, 2015
 
-\subsection{Analoge Neuronen}
 
-Aubau
-AF
+    \section{Künstliche Neuronen}
+    Neuronen bilden die Basis jedes ANN.
+    Die Harwareimplementierungen unterschieden sich dabei wesentlich sowohl zwischen digitalen und analogen Neuronen, als auch zwischen den Aktivierungsfunktionen.
+    \cite{habib1989digital}
 
-%(Spiking?)
+    Ein Neuron bildet die gewichtete Summe aus einer Menge von Eingaben und wendet auf diese eine Aktivierungsfunktion an.
 
-\subsection{Vergleich}
+    \[y = f(\sum_i {w_ix_i} + b)\]
 
-\section{ANN}
+    Die Aktivierungsfunktion ist dabei meist eine nichtlineare Funktion die ihre Eingabe in einen Wertebereich zwischen 0 und 1 abbildet.
 
-Ein ANN setzt sich aus einer Menge an Neuronen zusammen, die miteinander Verbunden werden.
-Dabei werden in der Regel komplett digitale oder analoge Neuronen verwendet, in bestimmten Fällen können die beiden Arten aber zu einer Hybridlösung kombiniert werden.
+    \[ f: \mathbb{R} \to [0,1] \subset \mathbb{R} \]
 
-\subsection{Digitales Neuronales Netz}
+    Der Aufbau eines Neurons ist dabei in Abbildung X skizziert.
 
-...
+    \subsection{Digitale Neuronen}
 
-\subsection{Analoges Neuronales Netz}
+    Aufgrund der weiten Verbreitung von CMOS Technologie sind digitale Implementierungen von künstlichen Neuronen relativ günstig umzusetzen\cite{misra2010artificial} .
 
-...
+    \subsubsection{FPGA Basierte Implementierungen}
+    In \cite{muthuramalingam2008neural} wird eine implemntierung eines Neurons mittles eines FPGAs Vorgeschlagen.
+    Dabei wird das Neuron in 2 Teile unterteilt, des sogentannten \texttt{SIGMA} Block und den \texttt{LOGSIG} Block.
 
-\subsection{Optisches Neuronales Netz}
+    Der \texttt{SIGMA} Block berechnet dabei die gewichtete Summe der Eingangswerte plus den Bias.
 
-??
+    Der \texttt{LOGSIG} Block übernimmt dann das berechnen der Aktivierungsfunktion.
+    Als Aktivierungsfunktion wird hier $f(x) = \frac{1}{1+e^{-x}}$ verwendet.
 
-\subsection{Hybrid}
+    Eine weitere Möglichkeit besteht darin, anstelle einer Berechnung der Aktivierungsfunktion eine Look UP Tabelle (LUT) zu verwenden.
+    Die LUT wird direkt im RAM des Neurons gespeichert.
+    Dabei muss beachtet werden, das die größe der LUT die Genauigkeit der Aktivierungsfunktion bestimmt.
+    Durch Verwendung einer LUT kann sowohl der Energieverbrauch als auch die Rechenzeit deutlich reduziert werden \cite{muthuramalingam2008neural} .
 
 
+    \subsection{Analoge Neuronen}
 
-\section{Conclusion}
-The conclusion goes here.
+    Wie digitale Neuronen bilden auch analoge Neuronen die gewichtete Summe über ihre Eingaben.
+    Um die Gewichte der Synapsen zu modlieren gibt es veschiedene Ansätze.
 
+    \subsubsection{Gewichtete Summe}
+    In einfachen Implementiereungen kann man Widerstände als Gewichte verwenden \cite{zurada1992analog} .
+    Diese können dann mithilfe eines Spannungsaddierers(Summing Amplifier) addiert werden.
+    Die Ausgangssspannung ist dann gerade die Summe der Gewichte.
 
+    %TODO: Add Fig. 1 von zurada1992analog
 
+    \subsubsection{Aktivierungsfunktion}
+    Die einfachste Aktivierungsfunktion ist digital wie auch analog die Identitätsfunktion.
+    Durch Anpassen der Gewichte kann diese linear Skaliert werden. \cite{zurada1992analog}
 
 
-% conference papers do not normally have an appendix
+    \subsubsection{Synapsen}
+    Das Hauptproblem analoger ANNs besteht darin, anpassbare Gewichte für Synapsen zu implementieren.
 
+    Gewichte können dabei über Varaible wiederstände simuliert werden, welche anhand der angelegten Spannung auf den richtigen Wiederstand gebracht werden.
+    Die Gewichte bzw die angelegte Spannung muss dann gespeichtert werden.
+    Eine gänige Technik dafür ist eine Ladung in einem Kondensator zu speichern.
+    Diese Spannung legt man an einem Transistor an.
+    Dabei wird ausgenutzt, das Transisitoren in einem bestimmten Bereich einen Quasi-Linearen widerstand propotional zur angelegten Spannung bilden.
+    %TODO: Add Figure showing Transistor resistance for Voltage
+    Durch Ändern der Ladung kann nun der Wiederstand und somit das Gewicht der Synapse anpassen.
 
-% use section* for acknowledgment
-\section*{Acknowledgment}
+    Das Hauptproblem bei dieser Art der Gewichtsspeicherung besteht am natürlichen Ladungsverlust des Kondensators mit der Zeit.
+    Dies kann jedoch durch Auffrischen der Ladung oder erweiterte Schaltungen behoben werden \cite{reed1989multiple} .
 
 
-The authors would like to thank...
+    Eine weitere möglichkeit Gewichte zu speichern besteht darin, sie ditial zu speichern und mit einem Schaltkreis in analoge Spannungen zu konvertieren.
+    Der Vorteil besteht in der erhöhten Genauigkeit von digitalen Speichern, und dem einfacheren Updaten der Gewichte aus Lernprozessen.
+    Die Implementierung wird durch die nötige Digital nach Analog konversion jedoch deutlich erschwert.
 
 
+    %(Spiking?)
 
+    \subsection{Vergleich}
 
+    Analoge Neuronen(über Widerstandsgewichte): Sehr hoher Stromverbrauch, viel Flächenverbrauch, Gewichte schwer änderbar-> kein Lernen, nur eine Anwendung
 
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
+    \section{ANN}
 
-% references section
+    Ein ANN setzt sich aus einer Menge an Neuronen zusammen, die miteinander Verbunden werden.
+    Zur Vereinfachung der Implementierung werden dabei meißt nicht alle Nueronen miteinander verbunden.
+    Statdessen weerden verscheidene Neuronen in Schichten organisiert.
+    Jede Schicht ist mit der davor Verbunden.
+    Dabei können die Schichten vollverbunden sein, also jedes Neuron der neuen Schicht ist mit jedem Neuron der vorherigen Schicht verbunden.
+    In vielen Fällen ist es jedoch sinnvoll die Zahl der Verbindungen lokal einzuschränken \cite{boser1991analog} .
 
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
+    Dabei werden in der Regel komplett digitale oder analoge Neuronen verwendet, in bestimmten Fällen können die beiden Arten aber zu einer Hybridlösung kombiniert werden.
 
-\medskip
 
-  \bibliographystyle{unsrt}
-  \bibliography{citations}
+    \subsection{Digitales Neuronales Netz}
 
+    %TODO: Fig. 10 aus Schuman2017ASO
+    Digitale ANNs werden aus einer Menge an digitalen Neuronen zusammengesetzt.
+    Die einzelnen Neuronen sind dabei miteinander verbunden.
+    Die Anzahl der Verbindungen beeinflusst maßgeblich die komplexität des Schaltnetzes.
 
-% that's all folks
+
+    \subsection{Analoges Neuronales Netz}
+
+    ...
+
+    \subsection{Optisches Neuronales Netz}
+
+    ??
+
+    \subsection{Hybrid}
+
+    \subsection{Vergleich}
+    Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs and outputs of
+    the neurons are quantized to 3 b, and the weights to approximately 5 b. \cite{boser1991analog}
+
+
+    %TODO: On Chip Learning? Learning Algorithms in general?
+
+    \section{Conclusion}
+    The conclusion goes here.
+
+
+
+
+
+    % conference papers do not normally have an appendix
+
+
+    % use section* for acknowledgment
+    \section*{Acknowledgment}
+
+
+    The authors would like to thank...
+
+
+
+
+
+    % trigger a \newpage just before the given reference
+    % number - used to balance the columns on the last page
+    % adjust value as needed - may need to be readjusted if
+    % the document is modified later
+    %\IEEEtriggeratref{8}
+    % The "triggered" command can be changed if desired:
+    %\IEEEtriggercmd{\enlargethispage{-5in}}
+
+    % references section
+
+    % can use a bibliography generated by BibTeX as a .bbl file
+    % BibTeX documentation can be easily obtained at:
+    % http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+    % The IEEEtran BibTeX style support page is at:
+    % http://www.michaelshell.org/tex/ieeetran/bibtex/
+    %\bibliographystyle{IEEEtran}
+    % argument is your BibTeX string definitions and bibliography database(s)
+    %\bibliography{IEEEabrv,../bib/paper}
+    %
+    % <OR> manually copy in the resultant .bbl file
+    % set second argument of \begin to the number of references
+    % (used to reserve space for the reference number labels box)
+
+    \medskip
+
+    \bibliographystyle{unsrt}
+    \bibliography{citations}
+
+
+    % that's all folks
 \end{document}
 
 
