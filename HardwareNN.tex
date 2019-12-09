@@ -504,6 +504,8 @@
 
     \section{ANN}
 
+    %TODO: Fig 16 aus ms1990digital
+
     Ein ANN setzt sich aus einer Menge an Neuronen zusammen, die miteinander Verbunden werden.
     Zur Vereinfachung der Implementierung werden dabei meißt nicht alle Nueronen miteinander verbunden.
     Statdessen weerden verscheidene Neuronen in Schichten organisiert.
@@ -521,22 +523,45 @@
     Die einzelnen Neuronen sind dabei miteinander verbunden.
     Die Anzahl der Verbindungen beeinflusst maßgeblich die komplexität des Schaltnetzes.
 
+    The mayority of digital Neurochip make use of widely available CMOS technology.
+    This allows for the use of standard components such as RAM weight storage and an easy integration into other applications \cite{dias2004artificial}.
+
+    A slice architecture provides building blocks to construct networks of arbitrary size.
+    In most cases, each building block holds a neuron, sometimes combined with a weight storage for a number of input weights.
+    The result is then passed further down the line.
+    This implementation closely resembles the graphical visualisations of neural networks.
+    Due to hardware limitations, this kind of architecture usually does not feature on chip learning \cite{dias2004artificial}.
+
+    %TODO: Add fig for sys array
+    A systolitic array consits of a large amount of processors in parrallel.
+    Each processor computes exactly one part of the calculation.
+    The step each processor executes does not change.
+    Each processor computes it's result in parallel, then passes it on to the next processor down the line.
+    This allows for a massive paralellistation and thereby computational speedups compared to classic processors.
+
+    The problem with such arrays comes with weight storage and activation functions.
+    Weight will be generally stored off-chip, limiting the calculation speed to the speed of the weight storage.
+    In addition, activation functions will be calculated through look-up tables potentially limiting precision and speed \cite{dias2004artificial}.
+    %TODO: Area and Perfomance estimation
 
     \subsection{Analoges Neuronales Netz}
 
-    ...
-
-    \subsection{Optisches Neuronales Netz}
-
-    ??
 
     \subsection{Hybrid}
+
+    Hybrid implementations try to bridge the gap between high computational speeds of analog implementations and ease of use of digital implementations.
+    Generally, this will mean digital external I/Os to allow integration into digital systems.
+    Internally processing might be partly analog.
+
 
     \subsection{Vergleich}
     Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs and outputs of
     the neurons are quantized to 3 b, and the weights to approximately 5 b. \cite{boser1991analog}
 
+    Analog Networks usually don't feature on-chip learning. \cite{ms1990digital}
 
+    Analog Chips generally slower.
+    Digital chips generally more precise
     %TODO: On Chip Learning? Learning Algorithms in general?
 
     \section{Conclusion}
