@@ -400,7 +400,7 @@
 
 
     \section{Introduction}
-    % no \IEEEPARstart
+
     Künstliche Neuronale Netze(ANN) sind ein von der Biologie Inspiriertes Konzept in Informatik, um Daten auszuwerten und zu klassifizieren.
     Ursprünglich wurden ANNs hauptsächlich in Software modeliert und auf klassischen Prozessoren ausgewertet. Aufgrund der hohen Paralellität und der vergleichseweise geringen Komplexität der einzelnen Operationen eignen sich klassische Prozessoren jedoch nur bedingt für solche Aufgaben \cite{forssell2014hardware}.
     Hardwareimplementierungen von Neuronalen Netzen veruschen dieses Problem zu lösen.
@@ -420,17 +420,12 @@
     Dies senkt den Harwareaufwand erheblich.
 
 
-    \hfill mds
-
-    \hfill August 26, 2015
-
-
     \section{Künstliche Neuronen}
-    Neuronen bilden die Basis jedes ANN.
-    Die Harwareimplementierungen unterschieden sich dabei wesentlich sowohl zwischen digitalen und analogen Neuronen, als auch zwischen den Aktivierungsfunktionen.
-    \cite{habib1989digital}
 
-    Ein Neuron bildet die gewichtete Summe aus einer Menge von Eingaben und wendet auf diese eine Aktivierungsfunktion an.
+    Neurons are the basic building blocks for any ANN.
+    Hardwareimplementations differ substantially between analog and digital implementations, and also between activation functions(AF) \cite{habib1989digital}.
+
+    A single neuron applies an activation function to the weighed sum over all its inputs.
 
     \[y = f(\sum_i {w_ix_i} + b)\]
 
@@ -516,7 +511,7 @@
     Dabei werden in der Regel komplett digitale oder analoge Neuronen verwendet, in bestimmten Fällen können die beiden Arten aber zu einer Hybridlösung kombiniert werden.
 
 
-    \subsection{Digitales Neuronales Netz}
+    \subsection{Digital Neurochips}
 
     %TODO: Fig. 10 aus Schuman2017ASO
     Digitale ANNs werden aus einer Menge an digitalen Neuronen zusammengesetzt.
@@ -539,12 +534,14 @@
     Each processor computes it's result in parallel, then passes it on to the next processor down the line.
     This allows for a massive paralellistation and thereby computational speedups compared to classic processors.
 
-    The problem with such arrays comes with weight storage and activation functions.
+    The problem with such arrays comes with the high complexity in managing such a massively parallel system.
     Weight will be generally stored off-chip, limiting the calculation speed to the speed of the weight storage.
     In addition, activation functions will be calculated through look-up tables potentially limiting precision and speed \cite{dias2004artificial}.
+
     %TODO: Area and Perfomance estimation
 
-    \subsection{Analoges Neuronales Netz}
+
+    \subsection{Analoges Neurochips}
 
 
     \subsection{Hybrid}
@@ -552,7 +549,6 @@
     Hybrid implementations try to bridge the gap between high computational speeds of analog implementations and ease of use of digital implementations.
     Generally, this will mean digital external I/Os to allow integration into digital systems.
     Internally processing might be partly analog.
-
 
     \subsection{Vergleich}
     Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs and outputs of
@@ -563,6 +559,9 @@
     Analog Chips generally slower.
     Digital chips generally more precise
     %TODO: On Chip Learning? Learning Algorithms in general?
+
+    \section{Learning}
+
 
     \section{Conclusion}
     The conclusion goes here.
