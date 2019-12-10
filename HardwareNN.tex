@@ -584,11 +584,17 @@
     Analog Networks usually don't feature on-chip learning. \cite{ms1990digital}
 
     Analog Chips generally faster.
-    Digital chips generally more precise
+    Digital chips generally more precise.
     %TODO: On Chip Learning? Learning Algorithms in general?
 
     \section{Learning}
 
+    On-chip learning poses a mayor challenge to both, analog and digital implementations.
+    Many applications however, do not require on-chip training.
+    Instead they rely on training on simulations of the neural networks.
+    After training on the simulation, the calculated weights and biases can then be uploaded to the ANN\@.
+
+    Applications that require on-chip training must resort to ANNs that feature the corresponding hardware.
 
     \section{Conclusion}
     The conclusion goes here.
