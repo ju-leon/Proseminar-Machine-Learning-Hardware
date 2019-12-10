@@ -541,8 +541,35 @@
     %TODO: Area and Perfomance estimation
 
 
-    \subsection{Analoges Neurochips}
+    \subsection{Analog Neurochips}
 
+    Analog neuropchips consit of a variety of analog neurons.
+    The amount and connectivity of these neurons heavily influences the complexity of the implementation.
+
+    Early implementations, such as the Intel ETANN therefor feature a limited amount of neurons and synapses.
+
+    Storing weight in analog ANNs poses a challenge to many implementations.
+    Storing weight in analog capacitors requires frequent updates of the weight values.
+    For larger networks this requires complex circuitry that takes up much of the area on the chip.
+    \\
+    Storing weights digitally requires frequent conversion from digital to analog weights.
+    This conversion can result in longer update times which in return might limit the ANNs update speed.
+    Another problem with storing weights digitally arises from the limited write cycles on EEPROM flash memory.
+    After a limited number of write operations to an EEPROM degeneration is observed.
+    This limits the storage cells ability to be used for on-chip learning, since learning requires frequent updates of the weights.
+
+    After learning is completed, all weights are constant.
+    This is where the advantages of EEPROM weight storage come into play, allowing for frequent read access to the weights \cite{holler1989electrically}.
+
+    %TODO: Evtl fig aufbau ETANN von https://en.wikichip.org/wiki/intel/etann
+
+    In contrast to traditional integrated circuits, analog ANNs can lead to more area and power efficient circuits \cite{forssell2014hardware}.
+    This makes them interesting in mobile applications, where power and space are the limiting factors, while in many cases training is not required but the weights are set by the manufacturer beforehand.
+    Additionally, analog ANNs are generally faster and require less hardware than digital implementations \cite{hollis1990artificial}.
+
+    The disadvantages of analog chips comes with manufacturing variations.
+    In order to compensate for manufacturing inaccuracy, circuits must have a sufficient size \cite{forssell2014hardware}.
+    Another way to compensate for manufacturing differences would be to retrain the network on-chip to fit the specifics of the chip.
 
     \subsection{Hybrid}
 
@@ -556,7 +583,7 @@
 
     Analog Networks usually don't feature on-chip learning. \cite{ms1990digital}
 
-    Analog Chips generally slower.
+    Analog Chips generally faster.
     Digital chips generally more precise
     %TODO: On Chip Learning? Learning Algorithms in general?
 
