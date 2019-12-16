@@ -56,6 +56,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
+\usepackage{graphicx}
 % Some Computer Society conferences also require the compsoc mode option,
 % but others use the standard conference format.
 %
@@ -377,9 +378,13 @@
     % As a general rule, do not put math, special symbols or citations
     % in the abstract
     \begin{abstract}
-        In diesem Proseminar werden verschiedene Harwareimplementierungen von künstlichen neuronalen Netzen(ANN) verglichen.
-        Insbesondere wird auf die Harwarestruktur der einzelenen Implementierungen eingegangen.
+        The inherent parallel nature of neural networks makes software implementations of Neural Networks perform poorly on classic
+        von-Neumann architectures.
+        This is why different types of hardware accelerators aim to improve performance of neural computation.
 
+        This paper presents an overview of recent approaches to implement Artificial Neural Networks(ANN) directly into hardware.
+        Specifically, analog versus digital implementations of ANNs are compared by there respective advantages and disadvantages.
+        Furthermore, we take a look into the future of neural processing units and recent research.
     \end{abstract}
 
     % no keywords
@@ -401,23 +406,21 @@
 
     \section{Introduction}
 
-    Künstliche Neuronale Netze(ANN) sind ein von der Biologie Inspiriertes Konzept in Informatik, um Daten auszuwerten und zu klassifizieren.
-    Ursprünglich wurden ANNs hauptsächlich in Software modeliert und auf klassischen Prozessoren ausgewertet. Aufgrund der hohen Paralellität und der vergleichseweise geringen Komplexität der einzelnen Operationen eignen sich klassische Prozessoren jedoch nur bedingt für solche Aufgaben \cite{forssell2014hardware}.
-    Hardwareimplementierungen von Neuronalen Netzen veruschen dieses Problem zu lösen.
+    Artificial neural networks are a biologically inspired concept in computer science, to classify and process large amounts of data.
+    Originally, ANNs were a concept designed in software and computed on classic processors.
+    Because of the massive amount of parallel operations, classic processors struggle to keep up with modern requirements to neural networks \cite{forssell2014hardware}.
+    Hardwareimplementations of ANNs try to solve that problem by designing a processing architecture tailored directly to ANNs.
 
-    Künstliche Nueronale Netze haben verschiene Anwendungsgebiete.
-    Neben dem Standartszenario der Klassifikation von Daten werden auch assoziative Neuronale Speicher eingesetzt um Daten zu speichern.
-    Neuronale Netze werden zum Automoatischen Hashen von Daten verweendet(Autoencoder), und viele weitere Anwendungen.
+    ANNs are used in a variety of applications.
+    Each applications has different requirements to the neural networks used.
+    Requirements can vary between computing speed, the topography of the neural network, the required precision and many more.
+    Similar to classic processors, this calls for a highly flexible architecture that can be adapted to fit the need of the respective application.
 
+    In addition to classifying data, learning is a key element of neural networks.
+    However, not every application requires on chip learning.
+    Especially in consumer products, pre-trained networks with no need for later training might be shipped.
 
-    Verschiedene Aufbauten und Topologien von NN fordern deshalb möglichst anpassbare und dynamische Architekturen von künstlichen NN,
-    um vergelichbar mit klassischen Prozessoren ein möglichst breites Feld von Neuronalen Netzen beschleunigen zu können.
-
-    Grundsätzlich kann man dabei die Funktion von ANNs in 2 Kategorien unterteilen.
-    Die Klassifikation von Daten und das Lernen uas Daten.
-    Dabei ist Lernen deutlich komplexer, und stellt an ANNs deutlich höhere Ansprüche als reines KLassifizieren.
-    In vielen Anwendungen ist zudem Lernen nicht gefordert, weshalb Implementierungen zum Teil kein Lernen unterstützen sondern nur mit vortrainierten Gewichten versehen werden.
-    Dies senkt den Harwareaufwand erheblich.
+    Since learning requires a lot of additional hardware, some ANN implementations sacrifice on chip learning to allow for a less complex and expensive hardware.
 
 
     \section{Künstliche Neuronen}
