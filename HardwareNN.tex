@@ -57,6 +57,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{graphicx}
+\usepackage{amsmath}
 % Some Computer Society conferences also require the compsoc mode option,
 % but others use the standard conference format.
 %
@@ -432,11 +433,26 @@
 
     \[y = f(\sum_i {w_ix_i} + b)\]
 
-    Die Aktivierungsfunktion ist dabei meist eine nichtlineare Funktion die ihre Eingabe in einen Wertebereich zwischen 0 und 1 abbildet.
+    The activation function(AF) is typically a nonlinear function that maps its input into a range between 0 and 1.
 
     \[ f: \mathbb{R} \to [0,1] \subset \mathbb{R} \]
 
-    Der Aufbau eines Neurons ist dabei in Abbildung X skizziert.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.25\textwidth]{resources/sigmoid.pdf}
+        \caption{An example sigmoid activation function. $y = \frac{1}{1+e^{-5x}}$}
+        \label{fig:sigmoid}
+    \end{figure}
+
+    In \ref{fig:neuron} the structure of a neuron is illustrated.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.25\textwidth]{resources/neuron.png}
+        \caption{A single neuron with synapse weights $w_1,\dots,w_n$, bias $b$ and AF $f(x)$}
+        \label{fig:neuron}
+    \end{figure}
+
 
     \subsection{Digitale Neuronen}
 
