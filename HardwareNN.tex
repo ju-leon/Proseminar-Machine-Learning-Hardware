@@ -379,12 +379,12 @@
     % As a general rule, do not put math, special symbols or citations
     % in the abstract
     \begin{abstract}
-        The inherent parallel nature of neural networks makes software implementations of Neural Networks perform poorly on classic
+        The inherent parallel nature of neural networks makes software implementations perform poorly on classic
         von-Neumann architectures.
-        This is why different types of hardware accelerators aim to improve performance of neural computation.
+        This is why different types of hardware accelerators aim to improve computation performance.
 
-        This paper presents an overview of recent approaches to implement Artificial Neural Networks(ANN) directly into hardware.
-        Specifically, analog versus digital implementations of ANNs are compared by there respective advantages and disadvantages.
+        This paper presents an overview of recent approaches to implement Artificial Neural Networks(ANN) into hardware.
+        Specifically, analog versus digital implementations are compared by their respective advantages and disadvantages.
         Furthermore, we take a look into the future of neural processing units and recent research around ANN implementations using memristors.
     \end{abstract}
 
@@ -426,10 +426,10 @@
 
     \section{Artificial Neurons}
 
-    Neurons are the basic building blocks for any ANN.
-    Hardwareimplementations differ substantially between analog and digital implementations, and also between activation functions(AF) \cite{habib1989digital}.
+    Neurons are the basic building blocks for ANNs.
+    Implementations differ substantially between analog and digital, and also between activation functions(AF) \cite{habib1989digital}.
 
-    A single neuron applies an activation function to the weighed sum over all its inputs.
+    A single neuron applies an AF to the weighed sum over all its inputs.
 
     \[y = f(\sum_i {w_ix_i} + b)\]
 
@@ -456,7 +456,9 @@
 
     \subsection{Digitale Neuronen}
 
-    Aufgrund der weiten Verbreitung von CMOS Technologie sind digitale Implementierungen von künstlichen Neuronen relativ günstig umzusetzen\cite{misra2010artificial} .
+    A common technique for implementing hardware ANNs is using CMOS technology.
+    This allows for a comparatively cheap implementation of the ANN \cite{misra2010artificial}.
+
 
     \subsubsection{FPGA Basierte Implementierungen}
     In \cite{muthuramalingam2008neural} wird eine implemntierung eines Neurons mittles eines FPGAs Vorgeschlagen.
@@ -475,8 +477,11 @@
 
     \subsection{Analoge Neuronen}
 
-    Wie digitale Neuronen bilden auch analoge Neuronen die gewichtete Summe über ihre Eingaben.
-    Um die Gewichte der Synapsen zu modlieren gibt es veschiedene Ansätze.
+    Analog neurons have the same function as digital neurons.
+    In analog neurons values are usually represented by either current or voltage.
+    This makes adding up two or more values relatively easy.
+
+    Weight storage however is a critical problem in analog neurons.
 
     \subsubsection{Gewichtete Summe}
     In einfachen Implementiereungen kann man Widerstände als Gewichte verwenden \cite{zurada1992analog} .
@@ -662,7 +667,7 @@
 
     This allows for nonvolatile weight storage with comparatively simple hardware.
     It is capable of replacing both digital weight storage and analog weight multiplication.
-    
+
 
     \section*{Acknowledgment}
 
