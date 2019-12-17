@@ -457,23 +457,42 @@
     \subsection{Digitale Neurons}
 
     A common technique for implementing hardware ANNs is using CMOS technology.
-    This allows for a comparatively cheap implementation of the ANN \cite{misra2010artificial}.
+    This allows for a comparatively cheap implementation of the ANN~\cite{misra2010artificial}.
 
+    Synaptic weights are stored in shift registers, flip-flops, or RAM\@.
+    Higher precision in weight storage usually requires a larger surface area and a more complex circuit.
+    A reduction of precision introduces more error into the system \cite{Nichols02feasibilityof}.
+    The advantage of digital weight storage comes with easy updatability.
+    Implementation on-chip learning in digital networks therefore is comparatively easy.
 
-    \subsubsection{FPGA Basierte Implementierungen}
+    Summing up the inputs can further reduce precision, and introduce additional errors due to unequally distributed nature of floating point numbers.
 
-    In \cite{muthuramalingam2008neural} wird eine implemntierung eines Neurons mittles eines FPGAs Vorgeschlagen.
-    Dabei wird das Neuron in 2 Teile unterteilt, des sogentannten \texttt{SIGMA} Block und den \texttt{LOGSIG} Block.
+    In digital implementations, a special circuit for weight addition is required.
+    This circuit can largely influence computation speed of the neural network.
 
-    Der \texttt{SIGMA} Block berechnet dabei die gewichtete Summe der Eingangswerte plus den Bias.
+    The distinctive non linear properties of the AF make computations very demanding.
+    To tackle this, AF processors might be shared between multiple neurons.
+    This limits the parallelism and ultimately computation speed.
 
-    Der \texttt{LOGSIG} Block übernimmt dann das berechnen der Aktivierungsfunktion.
-    Als Aktivierungsfunktion wird hier $f(x) = \frac{1}{1+e^{-x}}$ verwendet.
+    %In \cite{muthuramalingam2008neural} an AF $f(x) = \frac{1}{1+e^{-x}}$ is computed by spliting the
 
-    Eine weitere Möglichkeit besteht darin, anstelle einer Berechnung der Aktivierungsfunktion eine Look UP Tabelle (LUT) zu verwenden.
-    Die LUT wird direkt im RAM des Neurons gespeichert.
-    Dabei muss beachtet werden, das die größe der LUT die Genauigkeit der Aktivierungsfunktion bestimmt.
-    Durch Verwendung einer LUT kann sowohl der Energieverbrauch als auch die Rechenzeit deutlich reduziert werden \cite{muthuramalingam2008neural} .
+    Using a look-up-table(LUT), precision can be sacrificed for computational speed.
+    Depending on the precision and implementation of the LUT, it might also reduce surface area.
+
+    %\subsubsection{FPGA Basierte Implementierungen}
+
+    %In \cite{muthuramalingam2008neural} wird eine implemntierung eines Neurons mittles eines FPGAs Vorgeschlagen.
+    %Dabei wird das Neuron in 2 Teile unterteilt, des sogentannten \texttt{SIGMA} Block und den \texttt{LOGSIG} Block.
+
+    %Der \texttt{SIGMA} Block berechnet dabei die gewichtete Summe der Eingangswerte plus den Bias.
+
+    %Der \texttt{LOGSIG} Block übernimmt dann das berechnen der Aktivierungsfunktion.
+    %Als Aktivierungsfunktion wird hier $f(x) = \frac{1}{1+e^{-x}}$ verwendet.
+
+    %Eine weitere Möglichkeit besteht darin, anstelle einer Berechnung der Aktivierungsfunktion eine Look UP Tabelle (LUT) zu verwenden.
+    %Die LUT wird direkt im RAM des Neurons gespeichert.
+    %Dabei muss beachtet werden, das die größe der LUT die Genauigkeit der Aktivierungsfunktion bestimmt.
+    %Durch Verwendung einer LUT kann sowohl der Energieverbrauch als auch die Rechenzeit deutlich reduziert werden \cite{muthuramalingam2008neural} .
 
 
     \subsection{Analoge Neurons}
