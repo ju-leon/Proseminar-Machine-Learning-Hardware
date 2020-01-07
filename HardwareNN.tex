@@ -454,7 +454,7 @@
     \end{figure}
 
 
-    \subsection{Digitale Neurons}
+    \subsection{Digital Neurons}
 
     A common technique for implementing hardware ANNs is using CMOS technology.
     This allows for a comparatively cheap implementation of the ANN~\cite{misra2010artificial}.
@@ -495,7 +495,7 @@
     %Durch Verwendung einer LUT kann sowohl der Energieverbrauch als auch die Rechenzeit deutlich reduziert werden \cite{muthuramalingam2008neural} .
 
 
-    \subsection{Analoge Neurons}
+    \subsection{Analog Neurons}
 
     Analog neurons have the same function as digital neurons.
     In analog neurons values are usually represented by either current or voltage.
@@ -520,7 +520,7 @@
         \label{fig:analogweights}
     \end{figure}
 
-    \subsubsection{Aktivierungsfunktion}
+    \subsubsection{Activation function}
 
     Activation functions(AF) are applied to the weighted sum.
     The most basic AF is the identity function.
@@ -536,31 +536,35 @@
     The resistor changes resistance depending on the applied voltage.
     Using these resistors, the weights can then be stored.
 
-    TODO: Resistor: Siehe VLSI implementation of a neural network memory with several hundreds of neurons
-    TODO: Capacitor: Siehe A BiCMOS analog neural network with dynamically updated weights
-    TODO: Transistor: Siehe An electrically trainable artificial neutral network (ETANN) with 102 040 floating gate synapses
+    %TODO: Resistor: Siehe VLSI implementation of a neural network memory with several hundreds of neurons
+    %TODO: Capacitor: Siehe A BiCMOS analog neural network with dynamically updated weights
+    %TODO: Transistor: Siehe An electrically trainable artificial neutral network (ETANN) with 102 040 floating gate synapses
 
-    %Eine gänige Technik dafür ist eine Ladung in einem Kondensator zu speichern.
-    %Diese Spannung legt man an einem Transistor an.
-    %Dabei wird ausgenutzt, das Transisitoren in einem bestimmten Bereich einen Quasi-Linearen widerstand propotional zur angelegten Spannung bilden.
+    \paragraph{Digital Storage}
+    A common technique is to store the weights digitally and then converting them to analog voltages.
+    The advantage of digital storage lies in the higher precision of digital storage.
+    Additionally, updating digital weights is relatively simple simplifying on-chip Learning.
+
+    \paragraph{Transistor Storage}
+    A common technique to store weights is to store a capacity inside a capacitor.
+    The voltage is applied to transistor.
+    In a certain region, a resistor has a resistance almost linear to the applied voltage.
+    By changing the stored capacity, the resistance and thus the weight can be changed.
+
+    The main problem with that kind of weight storage lies in the natural decay of capacity.
+    Refreshing the capacity in regular intervals can fix that~\cite{reed1989multiple}.
     %TODO: Add Figure showing Transistor resistance for Voltage
-    %Durch Ändern der Ladung kann nun der Wiederstand und somit das Gewicht der Synapse anpassen.
-
-    %Das Hauptproblem bei dieser Art der Gewichtsspeicherung besteht am natürlichen Ladungsverlust des Kondensators mit der Zeit.
-    %Dies kann jedoch durch Auffrischen der Ladung oder erweiterte Schaltungen behoben werden \cite{reed1989multiple} .
-
-
-    %Eine weitere möglichkeit Gewichte zu speichern besteht darin, sie ditial zu speichern und mit einem Schaltkreis in analoge Spannungen zu konvertieren.
-    %Der Vorteil besteht in der erhöhten Genauigkeit von digitalen Speichern, und dem einfacheren Updaten der Gewichte aus Lernprozessen.
-    %Die Implementierung wird durch die nötige Digital nach Analog konversion jedoch deutlich erschwert.
-
-
-    %(Spiking?)
 
     \subsection{Comparison}
 
-    TODO
-    %Analoge Neuronen(über Widerstandsgewichte): Sehr hoher Stromverbrauch, viel Flächenverbrauch, Gewichte schwer änderbar-> kein Lernen, nur eine Anwendung
+    Changing weights in analog Neurons can be a difficult and time consuming task.
+    In applications that require on-chip learning, digital implementations therefor are often times the better choice.
+
+    Analog neurons generally have a higher power consumption than digital implementations.
+    However, due to the analog computations not being bound to any cycles, analog implementations may allow for faster computations.
+
+    Having analog weight storage also allows for non-quantized weight values.
+    However due to manufacturing differences and decay of analog storage, the actual weight values might not exactly represent the intended values.
 
     \section{ANN}
 
@@ -595,12 +599,14 @@
     The majority of digital neurochips make use of widely available CMOS technology.
     This allows for the use of standard components such as RAM weight storage and an easy integration into other applications~\cite{dias2004artificial}.
 
+    \paragraph{Slice architecture}
     A slice architecture provides building blocks to construct networks of arbitrary size.
     In most cases, each building block holds a neuron, sometimes combined with a weight storage for a number of input weights.
     The result is then passed further down the line.
     This implementation closely resembles the graphical visualisations of neural networks.
     Due to hardware limitations, this kind of architecture usually does not feature on chip learning~\cite{dias2004artificial}.
 
+    \paragraph{Systolic array}
     %TODO: Add fig for sys array
     A systolic array consist of a large amount of processors in parallel.
     Each processor computes exactly one part of the calculation.
@@ -617,7 +623,7 @@
 
     \subsection{Analog Neurochips}
 
-    Analog neuropchips consit of a variety of analog neurons.
+    Analog neuropchips consist of a variety of analog neurons.
     The amount and connectivity of these neurons heavily influences the complexity of the implementation.
 
     Early implementations, such as the Intel ETANN therefor feature a limited amount of neurons and synapses.
@@ -652,14 +658,16 @@
     Internally processing might be partly analog.
 
     \subsection{Comparison}
-    Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs and outputs of
-    the neurons are quantized to 3 b, and the weights to approximately 5 b. \cite{boser1991analog}
 
-    Analog Networks usually don't feature on-chip learning. \cite{ms1990digital}
+    To make storage of weights practical, weights in digital implementations are quantified.
+    Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs, outputs and
+    weights are quantified with high enough precision~\cite{gupta2015deep}.
+    The digital storage also means that results are repeatable and precise.
+    Digital computations are usually free of noise and produce reproducible output.
+    However, calculating activation functions and summing weights is complex and time consuming digitally.
+    Generally, this means digital implementations have a lower throughput than analog networks.
 
-    Analog Chips generally faster.
-    Digital chips generally more precise.
-    TODO: On Chip Learning. Learning Algorithms in general.
+    Analog Networks usually don't feature on-chip learning~\cite{ms1990digital}.
 
     \section{Learning}
 
