@@ -503,89 +503,114 @@
 
     Weight storage however is a critical problem in analog neurons.
 
-    \subsubsection{Gewichtete Summe}
-    In einfachen Implementiereungen kann man Widerstände als Gewichte verwenden \cite{zurada1992analog} .
-    Diese können dann mithilfe eines Spannungsaddierers(Summing Amplifier) addiert werden.
-    Die Ausgangssspannung ist dann gerade die Summe der Gewichte.
+    \subsubsection{Weighted Sum}
 
-    %TODO: Add Fig. 1 von zurada1992analog
+    Simpler implementations use resistors for weight storage~\cite{zurada1992analog}.
+    Resistance values can either be fixed or electrically tunable~\ref{fig:analogweights}.
+    Fixed-value resistances require a pre-trained model.
+    A fixed-value neural networks are not multi-purpose and the function can not be changed.
+    Weights are added up using a Summing Amplifier.
+    The output current then correlates to the weighted sum over all inputs.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{resources/analog-weights.png}
+        \caption{Neuron implementation with analog weight addition using using resistor weight storage.
+        Weights are determined by discrete resistance values(a), and electronically tunable weights(b)~\cite[Fig.~1]{zurada1992analog}}.
+        \label{fig:analogweights}
+    \end{figure}
 
     \subsubsection{Aktivierungsfunktion}
-    Die einfachste Aktivierungsfunktion ist digital wie auch analog die Identitätsfunktion.
-    Durch Anpassen der Gewichte kann diese linear Skaliert werden. \cite{zurada1992analog}
 
+    Activation functions(AF) are applied to the weighted sum.
+    The most basic AF is the identity function.
+    By adjusting weights the identity function can be scaled linear~\cite{zurada1992analog}.
 
-    \subsubsection{Synapsen}
-    Das Hauptproblem analoger ANNs besteht darin, anpassbare Gewichte für Synapsen zu implementieren.
+    More complex AFs require complex circuitry in analog neurons.
+    %TODO: Be more precise
 
-    Gewichte können dabei über Varaible wiederstände simuliert werden, welche anhand der angelegten Spannung auf den richtigen Wiederstand gebracht werden.
-    Die Gewichte bzw die angelegte Spannung muss dann gespeichtert werden.
+    \subsubsection{Synapses}
+    The main challenge with analog neurons comes with storing electronically adjustable weights for synapses.
 
-    %TODO: Resistor: Siehe VLSI implementation of a neural network memory with several hundreds of neurons
-    %TODO: Capacitor: Siehe A BiCMOS analog neural network with dynamically updated weights
-    %TODO: Transistor: Siehe An electrically trainable artificial neutral network (ETANN) with 102 040 floating gate synapses
+    Weights can be represented by adjustable resistors.
+    The resistor changes resistance depending on the applied voltage.
+    Using these resistors, the weights can then be stored.
 
-    Eine gänige Technik dafür ist eine Ladung in einem Kondensator zu speichern.
-    Diese Spannung legt man an einem Transistor an.
-    Dabei wird ausgenutzt, das Transisitoren in einem bestimmten Bereich einen Quasi-Linearen widerstand propotional zur angelegten Spannung bilden.
+    TODO: Resistor: Siehe VLSI implementation of a neural network memory with several hundreds of neurons
+    TODO: Capacitor: Siehe A BiCMOS analog neural network with dynamically updated weights
+    TODO: Transistor: Siehe An electrically trainable artificial neutral network (ETANN) with 102 040 floating gate synapses
+
+    %Eine gänige Technik dafür ist eine Ladung in einem Kondensator zu speichern.
+    %Diese Spannung legt man an einem Transistor an.
+    %Dabei wird ausgenutzt, das Transisitoren in einem bestimmten Bereich einen Quasi-Linearen widerstand propotional zur angelegten Spannung bilden.
     %TODO: Add Figure showing Transistor resistance for Voltage
-    Durch Ändern der Ladung kann nun der Wiederstand und somit das Gewicht der Synapse anpassen.
+    %Durch Ändern der Ladung kann nun der Wiederstand und somit das Gewicht der Synapse anpassen.
 
-    Das Hauptproblem bei dieser Art der Gewichtsspeicherung besteht am natürlichen Ladungsverlust des Kondensators mit der Zeit.
-    Dies kann jedoch durch Auffrischen der Ladung oder erweiterte Schaltungen behoben werden \cite{reed1989multiple} .
+    %Das Hauptproblem bei dieser Art der Gewichtsspeicherung besteht am natürlichen Ladungsverlust des Kondensators mit der Zeit.
+    %Dies kann jedoch durch Auffrischen der Ladung oder erweiterte Schaltungen behoben werden \cite{reed1989multiple} .
 
 
-    Eine weitere möglichkeit Gewichte zu speichern besteht darin, sie ditial zu speichern und mit einem Schaltkreis in analoge Spannungen zu konvertieren.
-    Der Vorteil besteht in der erhöhten Genauigkeit von digitalen Speichern, und dem einfacheren Updaten der Gewichte aus Lernprozessen.
-    Die Implementierung wird durch die nötige Digital nach Analog konversion jedoch deutlich erschwert.
+    %Eine weitere möglichkeit Gewichte zu speichern besteht darin, sie ditial zu speichern und mit einem Schaltkreis in analoge Spannungen zu konvertieren.
+    %Der Vorteil besteht in der erhöhten Genauigkeit von digitalen Speichern, und dem einfacheren Updaten der Gewichte aus Lernprozessen.
+    %Die Implementierung wird durch die nötige Digital nach Analog konversion jedoch deutlich erschwert.
 
 
     %(Spiking?)
 
-    \subsection{Vergleich}
+    \subsection{Comparison}
 
-    Analoge Neuronen(über Widerstandsgewichte): Sehr hoher Stromverbrauch, viel Flächenverbrauch, Gewichte schwer änderbar-> kein Lernen, nur eine Anwendung
+    TODO
+    %Analoge Neuronen(über Widerstandsgewichte): Sehr hoher Stromverbrauch, viel Flächenverbrauch, Gewichte schwer änderbar-> kein Lernen, nur eine Anwendung
 
     \section{ANN}
 
-    %TODO: Fig 16 aus ms1990digital
 
-    Ein ANN setzt sich aus einer Menge an Neuronen zusammen, die miteinander Verbunden werden.
-    Zur Vereinfachung der Implementierung werden dabei meißt nicht alle Nueronen miteinander verbunden.
-    Statdessen weerden verscheidene Neuronen in Schichten organisiert.
-    Jede Schicht ist mit der davor Verbunden.
-    Dabei können die Schichten vollverbunden sein, also jedes Neuron der neuen Schicht ist mit jedem Neuron der vorherigen Schicht verbunden.
-    In vielen Fällen ist es jedoch sinnvoll die Zahl der Verbindungen lokal einzuschränken \cite{boser1991analog} .
+    A ANN is constructed from a set of neurons that are interconnected.
+    Due to computational limits, not all neurons are interconnected.
+    Typically, neurons are grouped into layers.
+    Each neuron from the previous layer then feeds it input to the neurons of the next layer~\ref{fig:layer}.
+    Layers can be fully connected, meaning every output of every neuron is linked to every input of every neuron of the next layer.
+    To ease implementation and reduce computing power, in some implementations the layers are not fully connected \cite{boser1991analog}.
 
-    Dabei werden in der Regel komplett digitale oder analoge Neuronen verwendet, in bestimmten Fällen können die beiden Arten aber zu einer Hybridlösung kombiniert werden.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{resources/network-layer.png}
+        \caption{Inputs to a single neuron.
+        Each layer consist of one or more neurons with their own set of inputs.
+        The output of each neuron are fed into the next layer~\cite[Fig.~1]{ms1990digital}}.
+        \label{fig:layer}
+    \end{figure}
 
+    Usually neurons are either entirely digital or analog.
+    Some implementations however combine both types into a hybrid approach.
 
     \subsection{Digital Neurochips}
 
     %TODO: Fig. 10 aus Schuman2017ASO
-    Digitale ANNs werden aus einer Menge an digitalen Neuronen zusammengesetzt.
-    Die einzelnen Neuronen sind dabei miteinander verbunden.
-    Die Anzahl der Verbindungen beeinflusst maßgeblich die komplexität des Schaltnetzes.
 
-    The mayority of digital Neurochip make use of widely available CMOS technology.
-    This allows for the use of standard components such as RAM weight storage and an easy integration into other applications \cite{dias2004artificial}.
+    Digital ANNs are constructed from digital neurons.
+    The single neurons are interlinked.
+    In digital implementations, the number of synapses plays a big part in the complexity of the neural network.
+
+    The majority of digital neurochips make use of widely available CMOS technology.
+    This allows for the use of standard components such as RAM weight storage and an easy integration into other applications~\cite{dias2004artificial}.
 
     A slice architecture provides building blocks to construct networks of arbitrary size.
     In most cases, each building block holds a neuron, sometimes combined with a weight storage for a number of input weights.
     The result is then passed further down the line.
     This implementation closely resembles the graphical visualisations of neural networks.
-    Due to hardware limitations, this kind of architecture usually does not feature on chip learning \cite{dias2004artificial}.
+    Due to hardware limitations, this kind of architecture usually does not feature on chip learning~\cite{dias2004artificial}.
 
     %TODO: Add fig for sys array
-    A systolitic array consits of a large amount of processors in parrallel.
+    A systolic array consist of a large amount of processors in parallel.
     Each processor computes exactly one part of the calculation.
     The step each processor executes does not change.
     Each processor computes it's result in parallel, then passes it on to the next processor down the line.
-    This allows for a massive paralellistation and thereby computational speedups compared to classic processors.
+    This allows for a massive paralellisation and thereby computational speedups compared to classic processors.
 
     The problem with such arrays comes with the high complexity in managing such a massively parallel system.
     Weight will be generally stored off-chip, limiting the calculation speed to the speed of the weight storage.
-    In addition, activation functions will be calculated through look-up tables potentially limiting precision and speed \cite{dias2004artificial}.
+    In addition, activation functions will be calculated through look-up tables potentially limiting precision and speed~\cite{dias2004artificial}.
 
     %TODO: Area and Perfomance estimation
 
@@ -626,7 +651,7 @@
     Generally, this will mean digital external I/Os to allow integration into digital systems.
     Internally processing might be partly analog.
 
-    \subsection{Vergleich}
+    \subsection{Comparison}
     Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs and outputs of
     the neurons are quantized to 3 b, and the weights to approximately 5 b. \cite{boser1991analog}
 
@@ -634,7 +659,7 @@
 
     Analog Chips generally faster.
     Digital chips generally more precise.
-    %TODO: On Chip Learning? Learning Algorithms in general?
+    TODO: On Chip Learning. Learning Algorithms in general.
 
     \section{Learning}
 
@@ -675,7 +700,6 @@
         \label{fig:memristor}
     \end{figure}
 
-    %TODO: Add fig. 1 aus adhikari2012memristor
     In \ref{fig:memristor} a circuit consisting of 4 identical memristors capable of scaling the input by a specific factor is illustrated.
     The synaptic output can be modeled as the between input voltage $V_{in}$ and the synaptic weight.
 
