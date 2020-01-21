@@ -383,7 +383,7 @@
         von-Neumann architectures.
         Hardware accelerators aim to improve computation performance.
 
-        This paper presents an overview of recent approaches to implement Artificial Neural Networks(ANN) into hardware.
+        This paper presents an overview of recent approaches to implement Artificial Neural Networks(ANN) directly into hardware.
         Specifically, analog versus digital implementations are compared by their respective advantages and disadvantages.
         Furthermore, we take a look into the future of neural processing units and recent research around ANN implementations using memristors.
     \end{abstract}
@@ -427,7 +427,7 @@
     \section{Artificial Neurons}
 
     Neurons are the basic building blocks for ANNs.
-    Implementations differ substantially between analog and digital, and also between activation functions(AF) \cite{habib1989digital}.
+    Implementations differ substantially between analog and digital neurons, and also between activation functions(AF)~\cite{habib1989digital}.
 
     A single neuron applies an AF to the weighed sum over all its inputs.
 
@@ -463,9 +463,9 @@
     Higher precision in weight storage usually requires a larger surface area and a more complex circuit.
     A reduction of precision introduces more error into the system \cite{Nichols02feasibilityof}.
     The advantage of digital weight storage comes with easy updatability.
-    Implementation on-chip learning in digital networks therefore is comparatively easy.
+    Implementation of on-chip learning in digital networks therefore is comparatively easy.
 
-    Summing up the inputs can further reduce precision, and introduce additional errors due to unequally distributed nature of floating point numbers.
+    Summing up the inputs can further reduce the precision and introduce additional errors due to the unequally distributed nature of floating point numbers.
 
     In digital implementations, a special circuit for weight addition is required.
     This circuit can largely influence computation speed of the neural network.
@@ -477,7 +477,7 @@
     %In \cite{muthuramalingam2008neural} an AF $f(x) = \frac{1}{1+e^{-x}}$ is computed by spliting the
 
     Using a look-up-table(LUT), precision can be sacrificed for computational speed.
-    Depending on the precision and implementation of the LUT, it might also reduce surface area.
+    Depending on the precision and implementation of the LUT, it might also reduce surface area needed to implement the circuit in hardware.
 
     %\subsubsection{FPGA Basierte Implementierungen}
 
@@ -503,14 +503,20 @@
 
     Weight storage however is a critical problem in analog neurons.
 
+    Modern approaches to analog synapses tackle the problems of weight storage, calculating AFs and weight storage as follows.
+
     \subsubsection{Weighted Sum}
 
+    %TODO: Actually talk about calculating weighted sum instead of weight storage
+
     Simpler implementations use resistors for weight storage~\cite{zurada1992analog}.
-    Resistance values can either be fixed or electrically tunable~\ref{fig:analogweights}.
+    Resistance values can either be fixed or electrically tunable~[Fig.~\ref{fig:analogweights}].
     Fixed-value resistances require a pre-trained model.
     A fixed-value neural networks are not multi-purpose and the function can not be changed.
     Weights are added up using a Summing Amplifier.
     The output current then correlates to the weighted sum over all inputs.
+
+    %TODO: Add electornically tunable resistors
 
     \begin{figure}[h]
         \centering
@@ -561,7 +567,7 @@
     In applications that require on-chip learning, digital implementations therefor are often times the better choice.
 
     Analog neurons generally have a higher power consumption than digital implementations.
-    However, due to the analog computations not being bound to any cycles, analog implementations may allow for faster computations.
+    However, due to the analog computations not being bound to any clock cycles, analog implementations may allow for faster computations.
 
     Having analog weight storage also allows for non-quantized weight values.
     However due to manufacturing differences and decay of analog storage, the actual weight values might not exactly represent the intended values.
@@ -569,19 +575,19 @@
     \section{ANN}
 
 
-    A ANN is constructed from a set of neurons that are interconnected.
-    Due to computational limits, not all neurons are interconnected.
+    An ANN is constructed from a set of neurons that are interconnected.
+    Due to computational limits, not all neurons are interconnected. \\
     Typically, neurons are grouped into layers.
-    Each neuron from the previous layer then feeds it input to the neurons of the next layer~\ref{fig:layer}.
+    Each neuron from the previous layer then feeds its input to the neurons of the next layer~[Fig.~\ref{fig:layer}].
     Layers can be fully connected, meaning every output of every neuron is linked to every input of every neuron of the next layer.
-    To ease implementation and reduce computing power, in some implementations the layers are not fully connected \cite{boser1991analog}.
+    To ease implementation and reduce the amount of computing power needed, in some implementations the layers are not fully connected~\cite{boser1991analog}.
 
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{resources/network-layer.png}
         \caption{Inputs to a single neuron.
         Each layer consist of one or more neurons with their own set of inputs.
-        The output of each neuron are fed into the next layer~\cite[Fig.~1]{ms1990digital}}.
+        The output of each neuron are fed into the next layer~\cite[Fig.~1]{ms1990digital}.}
         \label{fig:layer}
     \end{figure}
 
@@ -603,19 +609,33 @@
     A slice architecture provides building blocks to construct networks of arbitrary size.
     In most cases, each building block holds a neuron, sometimes combined with a weight storage for a number of input weights.
     The result is then passed further down the line.
-    This implementation closely resembles the graphical visualisations of neural networks.
-    Due to hardware limitations, this kind of architecture usually does not feature on chip learning~\cite{dias2004artificial}.
+    This implementation closely resembles the graphical visualisations of neural networks.\\
+    The building block architecture makes it hard to access each neuron individually in a learning process.
+    Every single neuron has little knowledge about its surrounding area.
+    It only takes information, computes the result and forwards it.
+    This makes it hard to implement on-chip learning in slice architectures~\cite{dias2004artificial}.
 
     \paragraph{Systolic array}
     %TODO: Add fig for sys array
+
+
     A systolic array consist of a large amount of processors in parallel.
     Each processor computes exactly one part of the calculation.
     The step each processor executes does not change.
-    Each processor computes it's result in parallel, then passes it on to the next processor down the line.
-    This allows for a massive paralellisation and thereby computational speedups compared to classic processors.
 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{resources/sysarray.jpg}
+        \caption{Systolic arrays (b),(c) for matrix vector multiplication (a).
+        The systolic arrays are arranged in a 2-dimensional layout.
+        The feedforward rules of (b) and (c) differ~\cite[Fig.~2]{chung1992systolic}.}
+        \label{fig:sysarray}
+    \end{figure}
+
+    Each processor computes it's result in parallel, then passes it on to the next processor down the line~[Fig.~\ref{fig:sysarray}].
+    This allows for a massive paralellisation and thereby computational speedups compared to classic processors. \\
     The problem with such arrays comes with the high complexity in managing such a massively parallel system.
-    Weight will be generally stored off-chip, limiting the calculation speed to the speed of the weight storage.
+    Weight will generally be stored off-chip, limiting the calculation speed to the speed of the weight storage.\\
     In addition, activation functions will be calculated through look-up tables potentially limiting precision and speed~\cite{dias2004artificial}.
 
     %TODO: Area and Perfomance estimation
@@ -645,36 +665,52 @@
 
     In contrast to traditional integrated circuits, analog ANNs can lead to more area and power efficient circuits \cite{forssell2014hardware}.
     This makes them interesting in mobile applications, where power and space are the limiting factors, while in many cases training is not required but the weights are set by the manufacturer beforehand.
-    Additionally, analog ANNs are generally faster and require less hardware than digital implementations \cite{hollis1990artificial}.
+    Additionally, analog ANNs are generally faster and require less hardware than digital implementations \cite{hollis1990artificial}.\\
 
     The disadvantages of analog chips comes with manufacturing variations.
     In order to compensate for manufacturing inaccuracy, circuits must have a sufficient size \cite{forssell2014hardware}.
-    Another way to compensate for manufacturing differences would be to retrain the network on-chip to fit the specifics of the chip.
+    If on-chip learning hardware is present for the ANN, another way to compensate for manufacturing differences would be to retrain the network on-chip to fit the specifics of the chip.\\
+    This might work for some areas, however applications where frequent changes in network topology are required might not be able to wait for the network to retrain every time a new network is loaded on the chip.
+
 
     \subsection{Hybrid}
 
     Hybrid implementations try to bridge the gap between high computational speeds of analog implementations and ease of use of digital implementations.
-    Generally, this will mean digital external I/Os to allow integration into digital systems.
-    Internally processing might be partly analog.
+    Generally, this will mean digital external I/Os to allow integration into digital systems.\\
+    Internally processing might be partly analog, making use of the fast processing speed of analog neural networks and low power consumption.\\
+    Weight storage will be either analog or digital depending on the requirements to the network.
 
     \subsection{Comparison}
 
-    To make storage of weights practical, weights in digital implementations are quantified.
+    To make storage of weights practical, weights in digital implementations are heavily quantified.
     Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs, outputs and
-    weights are quantified with high enough precision~\cite{gupta2015deep}.
-    The digital storage also means that results are repeatable and precise.
+    weights are quantified with high enough precision~\cite{gupta2015deep}.\\
+    The advantage of digital storage is that results are repeatable and precise.
     Digital computations are usually free of noise and produce reproducible output.
     However, calculating activation functions and summing weights is complex and time consuming digitally.
-    Generally, this means digital implementations have a lower throughput than analog networks.
+    Generally, this means digital implementations have a lower throughput than analog networks.\\
 
-    Analog Networks usually don't feature on-chip learning~\cite{ms1990digital}.
+    In contrast, the output of analog implementations might vary by some degree.
+    Noise in early stages of the network may feed towards layers down the line and may be partially amplified.
+    This means predicting the exact outcome of analog classifications is very hard, and the network accuracy might suffer from noise.
+    Also, due to problems with weight updating, Analog Networks usually don't feature on-chip learning~\cite{ms1990digital}.
+    Yet the throughput of analog networks is very high and not bound to any clock cycle.
+    This means in applications where data is available at random points in time and has to processed swift, analog networks may be the better choice.
+
 
     \section{Learning}
 
+    Before neural networks can classify data, they need to undergo a learning phase.
+    While there are several algorithms to train neural networks, all of the popular choices require frequent updates to the weights of the neurons.
+    Also, some algorithms require knowledge about the topology of the network.\\
     On-chip learning poses a mayor challenge to both, analog and digital implementations.
+    The knowledge of the topology is often limited for individual components.
+    A processor that manages the entire network is often times not required for normal training and therefor not present. \\
+    This means in order to allow for on-chip training, special hardware is required in the network, increasing price and surface area of the implementation. \\
     Many applications however, do not require on-chip training.
     Instead they rely on training on simulations of the neural networks.
     After training on the simulation, the calculated weights and biases can then be uploaded to the ANN\@.
+    In mobile devices this could mean downloading pre-trained network models from the internet and then running classifications locally. \\
 
     Applications that require on-chip training must resort to ANNs that feature the corresponding hardware.
 
@@ -694,12 +730,12 @@
     \section{Conclusion}
     The conclusion goes here.
 
-    \section*{Prospects}
+    \section{Prospects}
 
     Traditional ANNs offer room for improvement, especially when it comes to on chip training.
     In more recent research, many hardware implementations therefor look beyond classic transistor or analog implementations.
     An especially promising new element for the next generation of ANNs comes with so called memristors.
-    These passive electronic elements allow for new circuit designs, that enable very space effient integrations of a latge amopunt of neurons.
+    These passive electronic elements allow for new circuit designs, that enable very space effient integrations of a large amount of neurons.
 
     \begin{figure}[h]
         \centering
@@ -708,22 +744,27 @@
         \label{fig:memristor}
     \end{figure}
 
-    In \ref{fig:memristor} a circuit consisting of 4 identical memristors capable of scaling the input by a specific factor is illustrated.
+    In~[Fig.~\ref{fig:memristor}] a circuit consisting of 4 identical memristors capable of scaling the input by a specific factor is illustrated.
     The synaptic output can be modeled as the between input voltage $V_{in}$ and the synaptic weight.
 
     \[V_{out} = \psi \times V_{in}\]
 
-    where $\psi$ can be dynamicially set using the memristors \cite{adhikari2012memristor}.
+    where $\psi$ can be dynamically set using the memristors \cite{adhikari2012memristor}.
 
     \[\psi = \left(\frac{M_2}{M_1+M_1} - \frac{M_4}{M_3+M_4}\right)\]
 
     This allows for nonvolatile weight storage with comparatively simple hardware.
     It is capable of replacing both digital weight storage and analog weight multiplication.
+    Using this technology, many of the current problems with ANNs seam to be solvable.
 
+    Another recent development, especially simulated neural networks, goes in the direction of spiking neural networks.
+    Spiking neural networks aim to closer represent biological neural networks, such as the human brain.
+    In spiking neural networks, instead of flooding the network with information, neurons only fire when reaching a certain threshold.
 
-    \section*{Acknowledgment}
-
-
+    The main difference however comes with learning in spiking networks.
+    While classical networks usually learn by judging the prediction and then tweaking the weights an biases, spiking neural networks learn in process.
+    This means, synapses adapt their weight depending on the intensity and amount they are fired~\cite{carrillo2012scalable}.
+    Memristors provide functionality similar to that, making them good building blocks to implement spiking neural networks in hardware~\cite{querlioz2011simulation}.
 
     \medskip
 
