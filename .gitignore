@@ -3,6 +3,7 @@
 .DS_Store
 /out
 
+/presentation/out
 ##Latex
 *.aux
 *.bcf
