@@ -1,0 +1,98 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% edited by Cihat Gündüz, Peter Wolf
+%%
+%% version 3.0
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+% Selbstdefinierte Kommandos als Arbeitsbeschleunigung:
+\newcommand{\f}[1]{\textbf{#1}}					% nutzen in der Form: \f{FETTER TEXT}
+\newcommand{\p}{\pause}						% nutzen in der Form: \p (statt \pause}
+\newcommand{\code}[1]{\lstinputlisting[caption=#1]}		% Nutzen in der Form: \code{TITEL}{QUELLE}
+\newcommand{\cd}[1]{\lstinline[basicstyle=\normalsize\ttfamily]{#1}}		% Nutzen in der Form: \cd{KURZER QUELLTEXT}
+\newcommand{\scd}[1]{\lstinline[basicstyle=\scriptsize\ttfamily]{#1}}	% Nutzen in Form: \scd{KLEINER QUELLTEXT} 	% scd steht für Small CoDe
+\newcommand{\mcd}[1]{\lstinline[basicstyle=\footnotesize\ttfamily]{#1}}	% für mittlere Größe verwenden!
+\newcommand{\bcode}[1]{\lstinputlisting[caption=#1,basicstyle=\normalsize\ttfamily]}	% Big Code, Nutzen in der Form: \bcode{TITEL}{QUELLE}
+\newcommand{\scode}[1]{\lstinputlisting[caption=#1,basicstyle=\tiny\ttfamily]} 	%Small Code, Nutzen in der Form: \scode{TITEL}{QUELLE}
+
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide
+
+\usepackage{templates/beamerthemekit}
+% \usepackage{templates/beamerthemekitwide}
+
+% Erlaube Code-Integration mit listings
+\definecolor{kit-gray}{RGB}{224,224,224}
+\definecolor{kit-green}{RGB}{32,149,128}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{animate}
+\lstset{
+         language=Java,
+         basicstyle=\scriptsize\ttfamily, % Sktipgröße und Standardschrift
+         numbers=left,              	% Ort der Zeilennummern
+         numberstyle=\tiny,         	% Stil der Zeilennummern
+         %stepnumber=2,               	% Abstand zwischen den Zeilennummern
+         numbersep=5pt,              	% Abstand der Nummern zum Text
+         tabsize=2,                  		% Größe von Tabs
+         extendedchars=true,         %
+         breaklines=true,            	% Zeilen werden umgebrochen
+         %keywordstyle=\color{red},
+    	frame=t,         
+	%frameround=tftf, 
+         keywordstyle=[1]\textbf,    	% Stil der Keywords
+         stringstyle=\color{blue}\ttfamily, 	% Farbe der String
+         showspaces=false,           	% Leerzeichen anzeigen?
+         showtabs=false,             	% Tabs anzeigen?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=6pt,
+         framexbottommargin=4pt,
+         backgroundcolor=\color{kit-gray},
+         commentstyle=\color{kit-green},
+         showstringspaces=false    	% Leerzeichen in Strings anzeigen?       
+         %numberbychapter=false 
+ }
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.79, 0.18, 0.57,0.03}{\parbox{\textwidth}{\hspace{4pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+\titleimage{KIT-Titel}
+
+% DEUTSCHE SPRACHE EINBINDEN
+\usepackage[utf8]{inputenc}
+
+% Deutsche Ausgabe anpassen
+\usepackage[T1]{fontenc}
+
+% Für korrekte Unterstreichung etc.
+\usepackage[normalem]{ulem}
+
+% Navigationssymbole unten abschalten
+\beamertemplatenavigationsymbolsempty
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}

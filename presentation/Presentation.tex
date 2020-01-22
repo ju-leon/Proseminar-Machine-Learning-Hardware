@@ -1,0 +1,59 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+% Diese Zeile für Upload-Datei benutzen (sonst auskommentieren)
+%\documentclass[handout]{beamer}
+
+% Diese Zeile für Präsentation benutzen (sonst auskommentieren)
+\documentclass[18pt]{beamer}
+
+%Load Preconfig
+\include{preamble}
+
+\definecolor{dgreen}{HTML}{006600}
+\definecolor{dyellow}{HTML}{FFCC00}
+
+% the presentation starts here
+%------------------------------------------------------------------------------------------------
+
+\title[Programmieren-Tutorium]{Programmieren-Tutorium\\ 12 - Designprinzipien, Abschlussaufgaben}
+\author{Leon Jungemeyer}
+\date{30.01.2019}
+
+\institute{Institut für Programmstrukturen und Datenorganisation}
+
+% Bibliography
+
+\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\usepackage{graphicx}
+\usepackage{blindtext}
+\addbibresource{templates/example.bib}
+\bibhang1em
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+\selectlanguage{ngerman}
+
+%title page
+\begin{frame}
+\titlepage
+\end{frame}
+
+%table of contents
+\begin{frame}{Heutiger Inhalt}
+\tableofcontents[sections={1-3}]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
