@@ -11,10 +11,10 @@
 %% burger@kit.edu
 
 % Diese Zeile für Upload-Datei benutzen (sonst auskommentieren)
-%\documentclass[handout]{beamer}
+\documentclass[handout]{beamer}
 
 % Diese Zeile für Präsentation benutzen (sonst auskommentieren)
-\documentclass[18pt]{beamer}
+%\documentclass[18pt]{beamer}
 
 %Load Preconfig
 \include{preamble}
@@ -25,11 +25,11 @@
 % the presentation starts here
 %------------------------------------------------------------------------------------------------
 
-\title[Programmieren-Tutorium]{Programmieren-Tutorium\\ 12 - Designprinzipien, Abschlussaufgaben}
+\title[Hardwareimplementierungen künstlicher neuronaler Netze]{Proseminar: Hardwareimplementierungen künstlicher neuronaler Netze}
 \author{Leon Jungemeyer}
 \date{30.01.2019}
 
-\institute{Institut für Programmstrukturen und Datenorganisation}
+\institute{Professur für Rechnerarchitektur und Parallelverarbeitung}
 
 % Bibliography
 
@@ -41,19 +41,213 @@
 
 \begin{document}
 
-% change the following line to "ngerman" for German style date and logos
-\selectlanguage{ngerman}
+    % change the following line to "ngerman" for German style date and logos
+    \selectlanguage{ngerman}
 
-%title page
-\begin{frame}
-\titlepage
-\end{frame}
+    %title page
+    \begin{frame}
+        \titlepage
+    \end{frame}
 
-%table of contents
-\begin{frame}{Heutiger Inhalt}
-\tableofcontents[sections={1-3}]
-\end{frame}
+    %table of contents
+    \begin{frame}{Heutiger Inhalt}
+        \tableofcontents[sections={1-3}]
+    \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \section{Einleitung}
+
+    \begin{frame} {Was ist ein ANN? - Neuronen}
+        \begin{center}
+            \includegraphics[width=290px]{resources/ann-neuron.png} \\
+            \tiny Using deep learning to investigate the neuroimaging correlates of psychiatric and neurological disorders: Methods and applications - Scientific Figure on ResearchGate.
+            \tiny Available from: \href{https://www.researchgate.net/figure/a-The-building-block-of-deep-neural-networks-artificial-neuron-or-node-Each-input-x\_fig1\_312205163}{https://www.researchgate.net/figure/a-The-building-block-of-deep-neural-networks-artificial-neuron-or-node-Each-input-x\_fig1\_312205163} \\
+            \tiny [accessed 22 Jan, 2020]
+        \end{center}
+    \end{frame}
+
+    \begin{frame} {Was ist ein ANN? - Synapsen}
+        \begin{center}
+            \includegraphics[width=290px]{resources/ann-neuron2.png} \\
+            \tiny Using deep learning to investigate the neuroimaging correlates of psychiatric and neurological disorders: Methods and applications - Scientific Figure on ResearchGate.
+            \tiny Available from: \href{https://www.researchgate.net/figure/a-The-building-block-of-deep-neural-networks-artificial-neuron-or-node-Each-input-x\_fig1\_312205163}{https://www.researchgate.net/figure/a-The-building-block-of-deep-neural-networks-artificial-neuron-or-node-Each-input-x\_fig1\_312205163} \\
+            \tiny [accessed 22 Jan, 2020]
+        \end{center}
+    \end{frame}
+
+
+    \begin{frame} {Aktivierungsfunktion}
+        \begin{center}
+            \includegraphics[width=220px]{../resources/sigmoid.pdf} \\
+            \tiny Sigmoid activation function. $y = \frac{1}{1+e^{-5x}}$
+        \end{center}
+    \end{frame}
+
+    \section{Neuronen}
+
+    \subsection{Digitale Neuronen}
+
+    \begin{frame}{Digitale Neuronen}
+        \begin{itemize}[<+->]
+            \item Eingabe/Ausgabe Digital
+            \item Werte typischerweise floating Point
+            \item Manchmal: Ganzzahlig
+            \item Umsetzung in CMOS
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Digitale Neuronen - Gewichte}
+        \begin{itemize}[<+->]
+            \item Verschiedene Arten von Gewichtsspeichern
+            \begin{itemize}
+                \item Shift-registern
+                \item Flip-flops
+                \item RAM
+            \end{itemize}
+            \item höhere Präzision -> mehr Speicher
+            \item digitale Speicher leicht änderbar
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Digitale Neuronen - Gewichtete Summe}
+        \begin{itemize}[<+->]
+            \item $x_i \times w_i$ für jede Synapse
+            \item relativ aufwendige float-Operationen
+            \item Summe kann zu Präzisionsverlust führen
+            \item Hardware kann geteilt werden
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Digitale Neuronen - Aktivierungsfunktion}
+        \begin{itemize}[<+->]
+            \item AF schwer zu berechnen
+            \item Spezielle Hardware erforderlich
+            \item Alternativ über look-up-table
+            \begin{itemize}
+                \item eventuell Präzisionsverlust
+                \item kann zwischen Neuronen geteilt werden
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \subsection{Analoge Neuronen}
+
+    \begin{frame}{Analoge Neuronen}
+        \begin{itemize}[<+->]
+            \item Eingabe/Ausgabe analog
+            \item Werte Stromstärke oder Spannung
+            \item Analoge Signalübertragung führt zu rauschen
+            \item unterschiede in einer Baureihe
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Analoge Neuronen - Gewichte}
+        \begin{itemize}[<+->]
+            \item Widerstand
+            \begin{itemize}
+                \item Wiederstände fest oder änderbar
+                \item bei festem $R$: braucht von Werk trainiertes Netz
+            \end{itemize}
+            \item Digital
+            \begin{itemize}
+                \item Gewichte werden digital gespeichert
+                \item bei bedarf in analoge $U$ konvertiert
+                \item analoger speicher nicht Rauschanfällig
+                \item Ergebnisse reproduzierbar
+                \item leicht änderbar
+                \item Quantisiert
+            \end{itemize}
+            \item Transistor
+            \begin{itemize}
+                \item Kondensator wird aufgeladen
+                \item Transistor in bestimmten bereich linearer Widerstand
+                \item Ladung ändern -> Widerstand ändern
+                \item Ladung verfällt, muss erneuert werden
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Ananloge Neuronen - Gewichtete Summe}
+        \begin{itemize}[<+->]
+            \item Spannung: Spannungsaddierer, Reihenschaltung
+            \item Strom: Parallelschalten
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Analoge Neuronen - Aktivierungsfunktion}
+        \begin{itemize}[<+->]
+            \item lineare AF: ändern der Gewichte
+            \item nichtlineare AF schwer zu berechnen
+            \item Spezielle Hardware erforderlich
+            \item z.B. Konvertierung nach Digital , LUT, Konvertierung nach Analog
+            \item Je nach Hardware AF nicht änderbar
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame} {Analoge Neuronen}
+        \begin{center}
+            \includegraphics[width=220px]{../resources/analog-weights.png} \\
+            \tiny Jacek M Zurada. Analog implementation of neural networks. IEEE
+            Circuits and Devices Magazine, Fig. 1, 8(5):36–41, 1992.
+        \end{center}
+    \end{frame}
+
+    \begin{frame} {Vergleich}
+        \begin{itemize}
+            \item Analoge Neuronen:
+            \begin{itemize}
+                \item höherer Energieverbrauch
+                \item schneller
+            \end{itemize}
+            \item Digitale Neuronen:
+            \begin{itemize}
+                \item kein/weniger Rauschen
+                \item einfachere Gewichtänderungen
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \section{Neuronale Netze}
+
+    \begin{frame} {Neurochips}
+        \begin{itemize}
+            \item Zusammengesetzt aus vielen Neuronen
+            \item Typischerweise in Schichten(Layern)
+            \item Schichten müssen nicht voll verbunden sein
+        \end{itemize}
+    \end{frame}
+
+    \subsection{Digitale Neurochips}
+    \begin{frame} {Digitale Neurochips}
+        \begin{itemize}
+            \item Slice Architecture
+            \begin{itemize}
+                \item Blöcke zum Aufbau eines NN
+                \item Ähnlich zu grafischem NN
+                \item Jedes Neuron berechnet und gibt weiter
+                \item Neuronen wissen nichts über Rest des Netzes
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame} {Digitale Neurochips}
+        \begin{itemize}
+            \item Systolic array
+            \begin{itemize}
+                \item Viele Parallelprozessoren
+                \item Jeder Prozessor jenau für eine Operation zuständig
+                \item Ergebnisse werden weiter gegeben
+                \item Gewichte typischerweise extern Gespeichert
+                \item AF normal vie LUT
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+
+
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \section{Diverses}
 
 \end{document}
