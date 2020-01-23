@@ -326,7 +326,7 @@
     % not capitalized unless they are the first or last word of the title.
     % Linebreaks \\ can be used within to get better formatting as desired.
     % Do not put math or special symbols in the title.
-    \title{Proseminar \\Hardwareimplementations of Artifical Neural Networks}
+    \title{Proseminar \\Hardware implementations of Artificial Neural Networks}
 
 
     % author names and affiliations
@@ -410,7 +410,7 @@
     Artificial neural networks are a biologically inspired concept in computer science, to classify and process large amounts of data.
     Originally, ANNs were a concept designed in software and computed on classic processors.
     Because of the massive amount of parallel operations, classic processors struggle to keep up with modern requirements to neural networks \cite{forssell2014hardware}.
-    Hardwareimplementations of ANNs try to solve that problem by designing a processing architecture tailored directly to ANNs.
+    Hardware implementations of ANNs try to solve that problem by designing a processing architecture tailored directly to ANNs.
 
     ANNs are used in a variety of applications.
     Each application has different requirements to the neural networks used.
@@ -418,10 +418,10 @@
     Similar to classic processors, this calls for a highly flexible architecture that can be adapted to fit the need of the respective application.
 
     In addition to classifying data, learning is a key element of neural networks.
-    However, not every application requires on chip learning.
+    However, not every application requires on-chip learning.
     Especially in consumer products, pre-trained networks with no need for later training might be shipped.
 
-    Since learning requires a lot of additional hardware, some ANN implementations sacrifice on chip learning to allow for a less complex and expensive hardware.
+    Since learning requires a lot of additional hardware, some ANN implementations sacrifice on-chip learning to allow for a less complex and expensive hardware.
 
 
     \section{Artificial Neurons}
@@ -429,11 +429,11 @@
     Neurons are the basic building blocks for ANNs.
     Implementations differ substantially between analog and digital neurons, and also between activation functions(AF)~\cite{habib1989digital}.
 
-    A single neuron applies an AF to the weighed sum over all its inputs.
+    A single neuron applies an AF to the weighted sum over all its inputs.
 
     \[y = f(\sum_i {w_ix_i} + b)\]
 
-    The activation function(AF) is typically a nonlinear function that maps its input into a range between 0 and 1.
+    The activation function(AF)~[Fig.~\ref{fig:sigmoid}] is typically a nonlinear, differentiable function that maps its input into a range between 0 and 1.
 
     \[ f: \mathbb{R} \to [0,1] \subset \mathbb{R} \]
 
@@ -444,7 +444,7 @@
         \label{fig:sigmoid}
     \end{figure}
 
-    In \ref{fig:neuron} the structure of a neuron is illustrated.
+    In~[Fig.~\ref{fig:neuron}] the structure of a neuron is illustrated.
 
     \begin{figure}[h]
         \centering
@@ -516,7 +516,7 @@
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.5\textwidth]{resources/analog-weights.png}
-        \caption{Neuron implementation with analog weight addition using using resistor weight storage.
+        \caption{Neuron implementation with analog weight addition using resistor weight storage.
         Weights are determined by discrete resistance values(a), and electronically tunable weights(b)~\cite[Fig.~1]{zurada1992analog}}.
         \label{fig:analogweights}
     \end{figure}
@@ -547,9 +547,9 @@
     A fixed-value neural networks are not multi-purpose and the function can not be changed.
 
     \paragraph{Digital Storage}
-    A common technique is to store the weights digitally and then converting them to analog voltages.
+    A common technique is to store the weights digitally and converting them to analog voltages when needed.
     The advantage of digital storage lies in the repeatability of digital storage.
-    Digital weight storage is free of noise and therefor produces the same output across different devices.
+    Digital weight storage is free of noise and therefore produces the same output across different devices.
     Additionally, updating digital weights is relatively simple simplifying on-chip Learning.
 
     \paragraph{Transistor Storage}
@@ -565,12 +565,12 @@
     \subsection{Comparison}
 
     Changing weights in analog Neurons can be a difficult and time consuming task.
-    In applications that require on-chip learning, digital implementations therefor are often times the better choice.
+    In applications that require on-chip learning, digital implementations therefore are often times the better choice.
 
     Analog neurons generally have a higher power consumption than digital implementations.
-    However, due to the analog computations not being bound to any clock cycles, analog implementations may allow for faster computations.
+    However, due to the analog computations not being bound to any clock cycles, analog implementations may allow faster computations.
 
-    Having analog weight storage also allows for non-quantized weight values.
+    Having analog weight storage also allows for the storage of non-quantized weight values.
     However due to manufacturing differences and decay of analog storage, the actual weight values might not exactly represent the intended values.
 
     \section{ANN}
@@ -579,7 +579,7 @@
     An ANN is constructed from a set of neurons that are interconnected.
     Due to computational limits, not all neurons are interconnected. \\
     Typically, neurons are grouped into layers.
-    Each neuron from the previous layer then feeds its input to the neurons of the next layer~[Fig.~\ref{fig:layer}].
+    Each neuron from the previous layer feeds its input to the neurons of the next layer~[Fig.~\ref{fig:layer}].
     Layers can be fully connected, meaning every output of every neuron is linked to every input of every neuron of the next layer.
     To ease implementation and reduce the amount of computing power needed, in some implementations the layers are not fully connected~\cite{boser1991analog}.
 
@@ -601,7 +601,7 @@
 
     Digital ANNs are constructed from digital neurons.
     The single neurons are interlinked.
-    In digital implementations, the number of synapses plays a big part in the complexity of the neural network.
+    In digital implementations, the number of synapses play a big part in the complexity of the neural network.
 
     The majority of digital neurochips make use of widely available CMOS technology.
     This allows for the use of standard components such as RAM weight storage and an easy integration into other applications~\cite{dias2004artificial}.
@@ -646,7 +646,7 @@
     Analog neuropchips consist of a variety of analog neurons.
     The amount and connectivity of these neurons heavily influences the complexity of the implementation.
 
-    Early implementations, such as the Intel ETANN therefor feature a limited amount of neurons and synapses.
+    Early implementations, such as the Intel ETANN therefore feature a limited amount of neurons and synapses.
 
     Storing weight in analog ANNs poses a challenge to many implementations.
     Storing weight in analog capacitors requires frequent updates of the weight values.
@@ -670,8 +670,8 @@
     The disadvantages of analog chips comes with manufacturing variations.
     In order to compensate for manufacturing inaccuracy, circuits must have a sufficient size \cite{forssell2014hardware}.
     If on-chip learning hardware is present for the ANN, another way to compensate for manufacturing differences would be to retrain the network on-chip to fit the specifics of the chip.\\
-    This might work for some areas, however applications where frequent changes in network topology are required might not be able to wait for the network to retrain every time a new network is loaded on the chip.
-
+    This might work for some areas, however some applications require frequent changes in network topology or weight values.
+    These applications might not be able to wait for the network to retrain every time a new network is loaded onto the chip.
 
     \subsection{Hybrid}
 
@@ -686,7 +686,7 @@
     Experiments with character recognizers show that the recognition performance remains virtually unchanged when the inputs, outputs and
     weights are quantified with high enough precision.\\
     More importantly the rounding process plays a big part in the classification accuracy~\cite{gupta2015deep}.\\
-    The advantage of digital storage is that results are repeatable and precise.
+    The advantage of digital storage is the precision and repeatability of results.
     Digital computations are usually free of noise and produce reproducible output.
     However, calculating activation functions and summing weights is complex and time consuming digitally.
     Generally, this means digital implementations have a lower throughput than analog networks.\\
@@ -706,9 +706,9 @@
     Also, some algorithms require knowledge about the topology of the network.\\
     On-chip learning poses a mayor challenge to both, analog and digital implementations.
     The knowledge of the topology is often limited for individual components.
-    A processor that manages the entire network is often times not required for normal classification and therefor not present. \\
+    A processor that manages the entire network is often not required for normal classification and therefor not present. \\
     This means in order to allow for on-chip training, special hardware is required in the network, increasing price and surface area of the implementation. \\
-    Many applications however, do not require on-chip training.
+    Many applications however do not require on-chip training.
     Instead they rely on training on simulations of the neural networks.
     After training on the simulation, the calculated weights and biases can then be uploaded to the ANN\@.
     In mobile devices this could mean downloading pre-trained network models from the internet and then running classifications locally. \\
@@ -730,10 +730,10 @@
 
     \section{Prospects}
 
-    Traditional ANNs offer room for improvement, especially when it comes to on chip training.
-    In more recent research, many hardware implementations therefor look beyond classic transistor or analog implementations.
+    Traditional ANNs offer room for improvement, especially when it comes to on-chip training.
+    In more recent research, many hardware implementations therefore look beyond classic transistor or analog implementations.
     An especially promising new element for the next generation of ANNs comes with so called memristors.
-    These passive electronic elements allow for new circuit designs, that enable very space effient integrations of a large amount of neurons.
+    These passive electronic elements allow for new circuit designs, that enable very space efficient integrations of a large amount of neurons.
 
     \begin{figure}[h]
         \centering
@@ -776,8 +776,8 @@
     All these drawbacks might be reason as to why many consumer products available today do not feature hardware ANNs yet.
     Instead many applications compromise by adding more powerful massively parallel coprocessors(classically GPUs) to the system.
     While these coprocessors are not specifically optimized for neural networks,
-    the large scale parallelism of these processors allows for faster simulation of neural networks than on classical processors.\\
-    Due to the multi-purpose layout of these processors, they can simulate a variety of network topologies and are also capable of training a network without any additional hardware.
+    the large scale parallelism of these processors allow faster simulation of neural networks than on classical processors.\\
+    Due to the multi-purpose layout these processors can simulate a variety of network topologies and are also capable of training a network without any additional hardware.
 
     \medskip
 
